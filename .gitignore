@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+
+# Environment variables
+.env
+
+# Local databases / outputs
+analytics.db
+fact_kpis.csv
+
+# OS
+.DS_Store
