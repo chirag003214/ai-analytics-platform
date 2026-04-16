@@ -11,7 +11,7 @@ actionable insights and executive-ready dashboards.
 - Multi-agent orchestration using LangGraph
 - Executive summary generation
 - Export to CSV / SQLite for BI tools
-- Power BI & Tableau dashboard integration
+- BI-ready CSV and SQLite exports (consumable by Power BI, Tableau, or any SQL client)
 - Streamlit interactive UI
 
 ## 🧠 Architecture
@@ -36,8 +36,9 @@ Copy code
 
 ## 📊 Dashboards
 
-The system exports analytics-ready tables (`fact_kpis.csv`) that can be
-directly connected to Power BI or Tableau for executive dashboards.
+The system produces two BI-ready exports: `fact_kpis.csv` and an `analytics.db`
+SQLite table (`fact_kpis`). Power BI, Tableau, or any SQL client can connect to
+these files directly — no additional integration layer is required.
 
 ## ▶️ How to Run
 

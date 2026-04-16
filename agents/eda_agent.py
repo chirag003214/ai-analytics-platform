@@ -1,18 +1,24 @@
 def eda_agent(df):
     numeric_df = df.select_dtypes(include="number")
 
-    corr = (
-        numeric_df.corr()
-        .unstack()
-        .sort_values(ascending=False)
-        .drop_duplicates()
-        .head(5)
-    )
+    unstacked = numeric_df.corr().unstack()
+
+    seen = set()
+    deduped = {}
+    for (a, b), v in unstacked.items():
+        if a == b:
+            continue
+        key = tuple(sorted((a, b)))
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped[(a, b)] = v
+
+    top = sorted(deduped.items(), key=lambda x: abs(x[1]), reverse=True)[:5]
 
     corr_clean = {
         f"{k[0]} vs {k[1]}": round(v, 3)
-        for k, v in corr.items()
-        if k[0] != k[1]
+        for k, v in top
     }
 
     return {

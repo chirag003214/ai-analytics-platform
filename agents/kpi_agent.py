@@ -17,12 +17,17 @@ def kpi_agent(df, date_col, value_col):
 
     series = pd.to_numeric(series, errors="coerce")
 
+    if series.isna().all():
+        raise ValueError(
+            f"metric column '{value_col}' contains no parseable numeric values"
+        )
+
     kpi = pd.DataFrame({
         date_col: df[date_col],
         value_col: series
-    }).sort_values(by=date_col)
+    }).sort_values(by=date_col).reset_index(drop=True)
 
-    kpi["growth"] = series.pct_change().round(3)
+    kpi["growth"] = kpi[value_col].pct_change().round(3)
 
     return kpi
 
